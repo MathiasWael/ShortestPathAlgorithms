@@ -13,15 +13,20 @@ namespace ShortestPathAlgorithms
 {
     public partial class Form1 : Form
     {
-        private Dictionary<Node.NodeStatus, Color> _nodeStatusColour = new Dictionary<Node.NodeStatus, Color> {
+        private static Dictionary<Node.NodeStatus, Color> _nodeStatusColour = new Dictionary<Node.NodeStatus, Color> {
             { Node.NodeStatus.Blocked, Color.Gray },
             { Node.NodeStatus.End, Color.Red },
             { Node.NodeStatus.Open, Color.White },
             { Node.NodeStatus.Start, Color.Green } };
+        private static int _buttonHeight = 40;
+        private static int _buttonWidth = 40;
+        private static int _startingX = 150;
+        private static int _startingY = 25;
 
         public Form1()
         {
             InitializeComponent();
+            createButtons(20, 20);
         }
 
         private void nodeColouring(Node node)
@@ -31,22 +36,27 @@ namespace ShortestPathAlgorithms
 
         private void createButtons(int width, int height)
         {
-            int numberOfButtons = width * height;
-            for (int i = 0; i < numberOfButtons; i++)
+            Point location = new Point(_startingX, _startingY);
+            for (int heightIndex = 0; heightIndex < height; heightIndex++)
             {
-                Node node = new Node();
-
-                i++;
+                for (int widthIndex = 0; widthIndex < width; widthIndex++)
+                {
+                    Node node = new Node(createButton(location));
+                    location.X += _buttonWidth;
+                }
+                location.X = _startingX;
+                location.Y += _buttonHeight;
             }
         }
 
-        private void createButton(int x, int y)
+        private Button createButton(Point point)
         {
             Button dynamicButton = new Button();
-            dynamicButton.Location = new Point(x, y); //150, 25
-            dynamicButton.Height = 40;
-            dynamicButton.Width = 40;
+            dynamicButton.Location = point;
+            dynamicButton.Height = _buttonHeight;
+            dynamicButton.Width = _buttonWidth;
             Controls.Add(dynamicButton);
+            return dynamicButton;
         }
 
         private void startNodeButton_CheckedChanged(object sender, EventArgs e)

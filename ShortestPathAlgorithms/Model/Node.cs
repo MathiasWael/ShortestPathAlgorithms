@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,12 @@ namespace ShortestPathAlgorithms.Model
     {
         public enum NodeStatus { Blocked, Open, Start, End }
         public NodeStatus Status { get; set; }
-        public Button button;
+        public Button Button { get; set; }
 
-        public Node()
+        public Node(Button button)
         {
             Status = NodeStatus.Open;
+            Button = button;
         }
     }
 }

@@ -31,7 +31,6 @@
             this.startNodeButton = new System.Windows.Forms.RadioButton();
             this.endNodeButton = new System.Windows.Forms.RadioButton();
             this.blockNodeButton = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // startNodeButton
@@ -70,20 +69,11 @@
             this.blockNodeButton.UseVisualStyleBackColor = true;
             this.blockNodeButton.CheckedChanged += new System.EventHandler(this.blockNodeButton_CheckedChanged);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(150, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(40, 40);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 592);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(972, 854);
             this.Controls.Add(this.blockNodeButton);
             this.Controls.Add(this.endNodeButton);
             this.Controls.Add(this.startNodeButton);
@@ -99,7 +89,6 @@
         private System.Windows.Forms.RadioButton startNodeButton;
         private System.Windows.Forms.RadioButton endNodeButton;
         private System.Windows.Forms.RadioButton blockNodeButton;
-        private System.Windows.Forms.Button button1;
     }
 }
 
