@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShortestPathAlgorithms.Model
+namespace ShortestPathAlgorithms.Business
 {
-    class Block
+    class Algorithms
     {
+
     }
 }
