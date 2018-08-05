@@ -23,19 +23,46 @@ namespace ShortestPathAlgorithms
         private static int _buttonWidth = 40;
         private static int _startingX = 150;
         private static int _startingY = 25;
+        private static int _noButtonsX = 20;
+        private static int _noButtonsY = 20;
 
         public Form1()
         {
             InitializeComponent();
-            createButtons(20, 20);
+            createButtons(_noButtonsX, _noButtonsY);
         }
 
         private void linkNeighbouringNodes()
         {
-            int counter = 0;
+            int counter = 1;
+
+            for (int i = 0; i < _noButtonsX; i++)
+            {
+                if(i == 0)
+                {
+
+                }
+                else if(i == _noButtonsX - 1)
+            }
+
             foreach (Node node in _nodes)
             {
-                node.Neighbours.Add(_nodes[counter + 1]);
+                if(counter == 1 || counter % 20 == 1) //left
+                {
+                    
+                }
+                else if(counter % 20 == 0) //right
+                {
+                    
+                }
+                if(counter <= 20) //top
+                {
+                    
+                }
+                else if(counter >= 380) //bottom
+                {
+                    
+                }
                 counter++;
             }
         }
