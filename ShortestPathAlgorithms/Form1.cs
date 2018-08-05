@@ -18,6 +18,7 @@ namespace ShortestPathAlgorithms
             { Node.NodeStatus.End, Color.Red },
             { Node.NodeStatus.Open, Color.White },
             { Node.NodeStatus.Start, Color.Green } };
+        private List<Node> _nodes = new List<Node>();
         private static int _buttonHeight = 40;
         private static int _buttonWidth = 40;
         private static int _startingX = 150;
@@ -29,9 +30,14 @@ namespace ShortestPathAlgorithms
             createButtons(20, 20);
         }
 
-        private void nodeColouring(Node node)
+        private void linkNeighbouringNodes()
         {
-
+            int counter = 0;
+            foreach (Node node in _nodes)
+            {
+                node.Neighbours.Add(_nodes[counter + 1]);
+                counter++;
+            }
         }
 
         private void createButtons(int width, int height)
@@ -41,7 +47,7 @@ namespace ShortestPathAlgorithms
             {
                 for (int widthIndex = 0; widthIndex < width; widthIndex++)
                 {
-                    Node node = new Node(createButton(location));
+                    _nodes.Add(new Node(createButton(location)));
                     location.X += _buttonWidth;
                 }
                 location.X = _startingX;
@@ -57,6 +63,11 @@ namespace ShortestPathAlgorithms
             dynamicButton.Width = _buttonWidth;
             Controls.Add(dynamicButton);
             return dynamicButton;
+        }
+
+        private void nodeColouring(Node node)
+        {
+
         }
 
         private void startNodeButton_CheckedChanged(object sender, EventArgs e)

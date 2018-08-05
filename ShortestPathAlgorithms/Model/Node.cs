@@ -13,6 +13,7 @@ namespace ShortestPathAlgorithms.Model
         public enum NodeStatus { Blocked, Open, Start, End }
         public NodeStatus Status { get; set; }
         public Button Button { get; set; }
+        public List<Node> Neighbours = new List<Node>();
 
         public Node(Button button)
         {
