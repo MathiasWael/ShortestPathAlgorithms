@@ -30,6 +30,7 @@ namespace ShortestPathAlgorithms
         {
             InitializeComponent();
             createButtons(_noButtonsX, _noButtonsY);
+            linkNeighbouringNodes();
         }
 
         private void linkNeighbouringNodes()
@@ -119,13 +120,28 @@ namespace ShortestPathAlgorithms
             dynamicButton.Location = point;
             dynamicButton.Height = _buttonHeight;
             dynamicButton.Width = _buttonWidth;
+            dynamicButton.ForeColor = Color.White;
             Controls.Add(dynamicButton);
             return dynamicButton;
         }
 
         private void nodeColouring(Node node)
         {
-
+            if(startNodeButton.Checked)
+            {
+                node.Status = Node.NodeStatus.Start;
+                node.Button.ForeColor = Color.Green;
+            }
+            else if(endNodeButton.Checked)
+            {
+                node.Status = Node.NodeStatus.End;
+                node.Button.ForeColor = Color.Red;
+            }
+            else if(blockNodeButton.Checked)
+            {
+                node.Status = Node.NodeStatus.Blocked;
+                node.Button.ForeColor = Color.Gray;
+            }
         }
 
         private void startNodeButton_CheckedChanged(object sender, EventArgs e)
