@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ShortestPathAlgorithms.Model
 {
-    class Node
+    public class Node
     {
         public enum NodeStatus { Blocked, Open, Start, End }
         public NodeStatus Status { get; set; }
