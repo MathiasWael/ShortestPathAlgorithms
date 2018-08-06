@@ -35,33 +35,64 @@ namespace ShortestPathAlgorithms
         private void linkNeighbouringNodes()
         {
             int counter = 1;
-
-            for (int i = 0; i < _noButtonsX; i++)
-            {
-                if(i == 0)
-                {
-
-                }
-                else if(i == _noButtonsX - 1)
-            }
-
             foreach (Node node in _nodes)
             {
-                if(counter == 1 || counter % 20 == 1) //left
+                if(counter <= _noButtonsX)
                 {
-                    
+                    if(counter == 1)
+                    {
+                        node.Neighbours.Add(_nodes[counter + 1]);
+                        node.Neighbours.Add(_nodes[counter + _noButtonsX]);
+                    }
+                    else if(counter == _noButtonsX)
+                    {
+                        node.Neighbours.Add(_nodes[counter - 1]);
+                        node.Neighbours.Add(_nodes[counter + _noButtonsX]);
+                    }
+                    else
+                    {
+                        node.Neighbours.Add(_nodes[counter - 1]);
+                        node.Neighbours.Add(_nodes[counter + 1]);
+                        node.Neighbours.Add(_nodes[counter + _noButtonsX]);
+                    }
                 }
-                else if(counter % 20 == 0) //right
+                else if(counter >= _noButtonsX * _noButtonsY + 1)
                 {
-                    
+                    if(counter == _noButtonsX * _noButtonsY + 1)
+                    {
+                        node.Neighbours.Add(_nodes[counter - _noButtonsX]);
+                        node.Neighbours.Add(_nodes[counter + 1]);
+                    }
+                    else if(counter == _noButtonsX * _noButtonsY)
+                    {
+                        node.Neighbours.Add(_nodes[counter - 1]);
+                        node.Neighbours.Add(_nodes[counter - _noButtonsX]);
+                    }
+                    else
+                    {
+                        node.Neighbours.Add(_nodes[counter - 1]);
+                        node.Neighbours.Add(_nodes[counter + 1]);
+                        node.Neighbours.Add(_nodes[counter - _noButtonsX]);
+                    }
                 }
-                if(counter <= 20) //top
+                else if(counter % _noButtonsX == 0)
                 {
-                    
+                    node.Neighbours.Add(_nodes[counter - 1]);
+                    node.Neighbours.Add(_nodes[counter + _noButtonsX]);
+                    node.Neighbours.Add(_nodes[counter - _noButtonsX]);
                 }
-                else if(counter >= 380) //bottom
+                else if(counter % _noButtonsX == 1)
                 {
-                    
+                    node.Neighbours.Add(_nodes[counter + 1]);
+                    node.Neighbours.Add(_nodes[counter + _noButtonsX]);
+                    node.Neighbours.Add(_nodes[counter - _noButtonsX]);
+                }
+                else
+                {
+                    node.Neighbours.Add(_nodes[counter - 1]);
+                    node.Neighbours.Add(_nodes[counter + 1]);
+                    node.Neighbours.Add(_nodes[counter + _noButtonsX]);
+                    node.Neighbours.Add(_nodes[counter - _noButtonsX]);
                 }
                 counter++;
             }
