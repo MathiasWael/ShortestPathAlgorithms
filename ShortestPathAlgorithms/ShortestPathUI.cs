@@ -15,8 +15,10 @@ namespace ShortestPathAlgorithms
     public partial class ShortestPathUI : Form
     {
         public Algorithms Algorithms;
-        private static int _buttonHeight = 40;
-        private static int _buttonWidth = 40;
+        private static int _mapHeight = 800;
+        private static int _mapWidth = 800;
+        private int _buttonHeight;
+        private int _buttonWidth;
         private static int _startingX = 175;
         private static int _startingY = 25;
 
@@ -24,12 +26,18 @@ namespace ShortestPathAlgorithms
         {
             Algorithms = new Algorithms();
             InitializeComponent();
-            createButtons(Algorithms.NoButtonsX, Algorithms.NoButtonsY);
-            Algorithms.LinkNeighbouringNodes();
+        }
+
+        public void CheckNode(Button button)
+        {
+            button.BackColor = Color.LightBlue;
         }
 
         private void createButtons(int width, int height)
         {
+            _buttonHeight = _mapHeight / Algorithms.NoButtonsY;
+            _buttonWidth = _mapWidth / Algorithms.NoButtonsX;
+
             Point location = new Point(_startingX, _startingY);
             for (int heightIndex = 0; heightIndex < height; heightIndex++)
             {
@@ -113,15 +121,28 @@ namespace ShortestPathAlgorithms
 
         private void createMapButton_Click(object sender, EventArgs e)
         {
+            foreach (Node node in Algorithms.AllNodes)
+            {
+                Controls.Remove(node.Button);
+            }
+            Algorithms.AllNodes.Clear();
+
             try
             {
-                int x = Int32.Parse(noButtonsXTextBox.Text);
-                int y = Int32.Parse(noButtonsYTextBox.Text);
+                Algorithms.NoButtonsX = Int32.Parse(noButtonsXTextBox.Text);
+                Algorithms.NoButtonsY = Int32.Parse(noButtonsYTextBox.Text);
+                createButtons(Algorithms.NoButtonsX, Algorithms.NoButtonsY);
+                Algorithms.LinkNeighbouringNodes();
             }
             catch(FormatException)
             {
-                
+                MessageBox.Show("Need to specify how many nodes in y and x axis", "Wrong input");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Algorithms.Djikstra();
         }
     }
 }

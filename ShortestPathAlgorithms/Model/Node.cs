@@ -10,10 +10,13 @@ namespace ShortestPathAlgorithms.Model
 {
     public class Node
     {
-        public enum NodeStatus { Blocked, Open, Start, End }
+        public enum NodeStatus { Blocked, Open, Start, End, Checked }
         public NodeStatus Status { get; set; }
         public Button Button { get; set; }
         public List<Node> Neighbours = new List<Node>();
+        public int Distance;
+        public int edgeWeight = 1;
+        public Node Previous;
 
         public Node(Button button)
         {
