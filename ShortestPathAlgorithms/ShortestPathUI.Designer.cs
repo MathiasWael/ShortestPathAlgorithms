@@ -39,7 +39,7 @@
             this.noButtonsXTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.djikstraButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // startNodeButton
@@ -102,7 +102,7 @@
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(75, 23);
             this.resetMapButton.TabIndex = 7;
-            this.resetMapButton.Text = "Reset Map";
+            this.resetMapButton.Text = "Clear Map";
             this.resetMapButton.UseVisualStyleBackColor = true;
             this.resetMapButton.Click += new System.EventHandler(this.resetMapButton_Click);
             // 
@@ -148,22 +148,22 @@
             this.label2.TabIndex = 12;
             this.label2.Text = "# nodes Y";
             // 
-            // button1
+            // djikstraButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 361);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Djikstra";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.djikstraButton.Location = new System.Drawing.Point(12, 361);
+            this.djikstraButton.Name = "djikstraButton";
+            this.djikstraButton.Size = new System.Drawing.Size(75, 23);
+            this.djikstraButton.TabIndex = 13;
+            this.djikstraButton.Text = "Djikstra";
+            this.djikstraButton.UseVisualStyleBackColor = true;
+            this.djikstraButton.Click += new System.EventHandler(this.djikstraButton_Click);
             // 
             // ShortestPathUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 854);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.djikstraButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.noButtonsXTextBox);
@@ -195,7 +195,7 @@
         private System.Windows.Forms.TextBox noButtonsXTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button djikstraButton;
     }
 }
 

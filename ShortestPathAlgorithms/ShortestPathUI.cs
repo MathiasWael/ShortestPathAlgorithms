@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ShortestPathAlgorithms.Business;
+using System.Threading;
 
 namespace ShortestPathAlgorithms
 {
@@ -28,15 +29,10 @@ namespace ShortestPathAlgorithms
             InitializeComponent();
         }
 
-        public void CheckNode(Button button)
-        {
-            button.BackColor = Color.LightBlue;
-        }
-
         private void createButtons(int width, int height)
         {
-            _buttonHeight = _mapHeight / Algorithms.NoButtonsY;
-            _buttonWidth = _mapWidth / Algorithms.NoButtonsX;
+            _buttonHeight = _mapHeight / height;
+            _buttonWidth = _mapWidth / width;
 
             Point location = new Point(_startingX, _startingY);
             for (int heightIndex = 0; heightIndex < height; heightIndex++)
@@ -129,10 +125,10 @@ namespace ShortestPathAlgorithms
 
             try
             {
-                Algorithms.NoButtonsX = Int32.Parse(noButtonsXTextBox.Text);
-                Algorithms.NoButtonsY = Int32.Parse(noButtonsYTextBox.Text);
-                createButtons(Algorithms.NoButtonsX, Algorithms.NoButtonsY);
-                Algorithms.LinkNeighbouringNodes();
+                int x = Int32.Parse(noButtonsXTextBox.Text);
+                int y = Int32.Parse(noButtonsYTextBox.Text);
+                createButtons(x, y);
+                Algorithms.LinkNeighbouringNodes(x, y);
             }
             catch(FormatException)
             {
@@ -140,9 +136,10 @@ namespace ShortestPathAlgorithms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void djikstraButton_Click(object sender, EventArgs e)
         {
-            Algorithms.Djikstra();
+            Thread thread = new Thread(Algorithms.Djikstra);
+            thread.Start();
         }
     }
 }
