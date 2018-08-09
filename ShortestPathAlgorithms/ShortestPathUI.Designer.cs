@@ -40,6 +40,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.djikstraButton = new System.Windows.Forms.Button();
+            this.waitTimeTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ScoresLabel = new System.Windows.Forms.Label();
+            this.djikstraScoreLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startNodeButton
@@ -89,7 +93,7 @@
             // drawModeCheckBox
             // 
             this.drawModeCheckBox.AutoSize = true;
-            this.drawModeCheckBox.Location = new System.Drawing.Point(12, 220);
+            this.drawModeCheckBox.Location = new System.Drawing.Point(12, 185);
             this.drawModeCheckBox.Name = "drawModeCheckBox";
             this.drawModeCheckBox.Size = new System.Drawing.Size(81, 17);
             this.drawModeCheckBox.TabIndex = 6;
@@ -98,7 +102,7 @@
             // 
             // resetMapButton
             // 
-            this.resetMapButton.Location = new System.Drawing.Point(12, 261);
+            this.resetMapButton.Location = new System.Drawing.Point(12, 234);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(75, 23);
             this.resetMapButton.TabIndex = 7;
@@ -122,6 +126,7 @@
             this.noButtonsYTextBox.Name = "noButtonsYTextBox";
             this.noButtonsYTextBox.Size = new System.Drawing.Size(69, 20);
             this.noButtonsYTextBox.TabIndex = 9;
+            this.noButtonsYTextBox.Text = "15";
             // 
             // noButtonsXTextBox
             // 
@@ -129,6 +134,7 @@
             this.noButtonsXTextBox.Name = "noButtonsXTextBox";
             this.noButtonsXTextBox.Size = new System.Drawing.Size(69, 20);
             this.noButtonsXTextBox.TabIndex = 10;
+            this.noButtonsXTextBox.Text = "15";
             // 
             // label1
             // 
@@ -150,7 +156,7 @@
             // 
             // djikstraButton
             // 
-            this.djikstraButton.Location = new System.Drawing.Point(12, 361);
+            this.djikstraButton.Location = new System.Drawing.Point(12, 532);
             this.djikstraButton.Name = "djikstraButton";
             this.djikstraButton.Size = new System.Drawing.Size(75, 23);
             this.djikstraButton.TabIndex = 13;
@@ -158,11 +164,50 @@
             this.djikstraButton.UseVisualStyleBackColor = true;
             this.djikstraButton.Click += new System.EventHandler(this.djikstraButton_Click);
             // 
+            // waitTimeTextBox
+            // 
+            this.waitTimeTextBox.Location = new System.Drawing.Point(12, 503);
+            this.waitTimeTextBox.Name = "waitTimeTextBox";
+            this.waitTimeTextBox.Size = new System.Drawing.Size(69, 20);
+            this.waitTimeTextBox.TabIndex = 14;
+            this.waitTimeTextBox.Text = "50";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 487);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Time per node, ms";
+            // 
+            // ScoresLabel
+            // 
+            this.ScoresLabel.AutoSize = true;
+            this.ScoresLabel.Location = new System.Drawing.Point(9, 343);
+            this.ScoresLabel.Name = "ScoresLabel";
+            this.ScoresLabel.Size = new System.Drawing.Size(62, 13);
+            this.ScoresLabel.TabIndex = 16;
+            this.ScoresLabel.Text = "Map Score:";
+            // 
+            // djikstraScoreLabel
+            // 
+            this.djikstraScoreLabel.AutoSize = true;
+            this.djikstraScoreLabel.Location = new System.Drawing.Point(9, 367);
+            this.djikstraScoreLabel.Name = "djikstraScoreLabel";
+            this.djikstraScoreLabel.Size = new System.Drawing.Size(45, 13);
+            this.djikstraScoreLabel.TabIndex = 17;
+            this.djikstraScoreLabel.Text = "Djikstra:";
+            // 
             // ShortestPathUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 854);
+            this.Controls.Add(this.djikstraScoreLabel);
+            this.Controls.Add(this.ScoresLabel);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.waitTimeTextBox);
             this.Controls.Add(this.djikstraButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -196,6 +241,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button djikstraButton;
+        private System.Windows.Forms.TextBox waitTimeTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label ScoresLabel;
+        private System.Windows.Forms.Label djikstraScoreLabel;
     }
 }
 

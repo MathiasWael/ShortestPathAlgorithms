@@ -12,32 +12,36 @@ namespace ShortestPathAlgorithms.Business
     public class Algorithms
     {
         public List<Node> AllNodes = new List<Node>();
+        public List<Node> Sequence = new List<Node>();
+        public int WaitTimeBetweenNodes;
 
-        public void Djikstra()
+        public void Djikstra(Action callback)
         {
-            List<Node> DjikstaNodes = new List<Node>(AllNodes);
-            foreach (Node node in DjikstaNodes)
-            {
+            Node lowestDistanceNode = null;
+            List<Node> DjikstraNodes = new List<Node>(AllNodes.FindAll(x => x.Status != Node.NodeStatus.Blocked));
+
+            foreach (Node node in DjikstraNodes)
                 node.Distance = 999999999;
-                if (node.Status == Node.NodeStatus.Start)
-                    node.Distance = 0;
-            }
+            DjikstraNodes.Find(x => x.Status == Node.NodeStatus.Start).Distance = 0;
 
-            DjikstaNodes.RemoveAll(x => x.Status == Node.NodeStatus.Blocked);
-
-            while(DjikstaNodes.Count != 0)
+            while(DjikstraNodes.Count != 0)
             {
-                int lowestDistance = DjikstaNodes.Min(x => x.Distance);
-                Node lowestDistanceNode = DjikstaNodes.First(x => x.Distance == lowestDistance);
-                DjikstaNodes.Remove(lowestDistanceNode);
-                lowestDistanceNode.Button.BackColor = System.Drawing.Color.LightBlue;
-                Thread.Sleep(250);
-                if(lowestDistanceNode.Status == Node.NodeStatus.End)
+                Thread.Sleep(WaitTimeBetweenNodes);
+
+                lowestDistanceNode = DjikstraNodes.First(x => x.Distance == DjikstraNodes.Min(i => i.Distance));
+                DjikstraNodes.Remove(lowestDistanceNode);
+                
+                if(lowestDistanceNode.Status != Node.NodeStatus.Start)
+                    lowestDistanceNode.Button.BackColor = System.Drawing.Color.DarkOrange;
+                if (lowestDistanceNode.Status == Node.NodeStatus.End)
+                {
+                    djikstraPath(lowestDistanceNode);
                     break;
+                }
 
                 foreach (Node neighbour in lowestDistanceNode.Neighbours)
                 {
-                    int distance = lowestDistanceNode.Distance + neighbour.edgeWeight;
+                    int distance = lowestDistanceNode.Distance + neighbour.EdgeWeight;
                     if(distance < neighbour.Distance)
                     {
                         neighbour.Distance = distance;
@@ -45,6 +49,15 @@ namespace ShortestPathAlgorithms.Business
                     }
                 }
             }
+        }
+
+        private void djikstraPath(Node target)
+        {
+            Thread.Sleep(WaitTimeBetweenNodes);
+            target.Button.BackColor = System.Drawing.Color.Gray;
+            Sequence.Add(target);
+            if(target.Previous != null)
+                djikstraPath(target.Previous);
         }
 
         public void LinkNeighbouringNodes(int x, int y)

@@ -97,7 +97,7 @@ namespace ShortestPathAlgorithms
             else if(blockNodeButton.Checked)
             {
                 node.Status = Node.NodeStatus.Blocked;
-                node.Button.BackColor = Color.Gray;
+                node.Button.BackColor = Color.Black;
             }
             else if(openNodeButton.Checked)
             {
@@ -127,8 +127,13 @@ namespace ShortestPathAlgorithms
             {
                 int x = Int32.Parse(noButtonsXTextBox.Text);
                 int y = Int32.Parse(noButtonsYTextBox.Text);
-                createButtons(x, y);
-                Algorithms.LinkNeighbouringNodes(x, y);
+                if(x < 2 || y < 2)
+                    MessageBox.Show("Minimum 2 in both y and x axis", "Wrong input");
+                else
+                {
+                    createButtons(x, y);
+                    Algorithms.LinkNeighbouringNodes(x, y);
+                }
             }
             catch(FormatException)
             {
@@ -138,8 +143,41 @@ namespace ShortestPathAlgorithms
 
         private void djikstraButton_Click(object sender, EventArgs e)
         {
-            Thread thread = new Thread(Algorithms.Djikstra);
-            thread.Start();
+            if(startingNodeCheck() && getWaitTime())
+            {
+                //Thread thread = new Thread(Algorithms.Djikstra(updateScore));
+                //thread.Start();
+                //djikstraScoreLabel.Text = djikstraScoreLabel.Text + " " + Algorithms.Sequence[0].Distance.ToString();
+            }
+        }
+
+        private void updateScore()
+        {
+
+        }
+
+        private bool getWaitTime()
+        {
+            try
+            {
+                Algorithms.WaitTimeBetweenNodes = Int32.Parse(waitTimeTextBox.Text);
+                return true;
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Need to specify waiting time", "Wrong input");
+            }
+            return false;
+        }
+
+        private bool startingNodeCheck()
+        {
+            if (!Algorithms.AllNodes.Any(x => x.Status == Node.NodeStatus.Start))
+            {
+                MessageBox.Show("Need to specify a starting node", "Wrong input");
+                return false;
+            }
+            return true;
         }
     }
 }
