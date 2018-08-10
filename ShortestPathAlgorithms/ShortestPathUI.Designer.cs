@@ -102,7 +102,7 @@
             // 
             // resetMapButton
             // 
-            this.resetMapButton.Location = new System.Drawing.Point(12, 234);
+            this.resetMapButton.Location = new System.Drawing.Point(93, 51);
             this.resetMapButton.Name = "resetMapButton";
             this.resetMapButton.Size = new System.Drawing.Size(75, 23);
             this.resetMapButton.TabIndex = 7;

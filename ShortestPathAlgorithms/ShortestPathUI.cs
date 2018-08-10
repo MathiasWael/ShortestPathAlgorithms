@@ -110,8 +110,19 @@ namespace ShortestPathAlgorithms
         {
             foreach (Node node in Algorithms.AllNodes)
             {
-                node.Status = Node.NodeStatus.Open;
-                node.Button.BackColor = Color.White;
+                if(node.Status == Node.NodeStatus.Visited)
+                {
+                    node.Status = Node.NodeStatus.Open;
+                    node.Button.BackColor = Color.White;
+                }
+                else if(node.Status == Node.NodeStatus.Start)
+                {
+                    node.Button.BackColor = Color.Red;
+                }
+                else if(node.Status == Node.NodeStatus.End)
+                {
+                    node.Button.BackColor = Color.Green;
+                }
             }
         }
 
@@ -145,15 +156,25 @@ namespace ShortestPathAlgorithms
         {
             if(startingNodeCheck() && getWaitTime())
             {
-                //Thread thread = new Thread(Algorithms.Djikstra(updateScore));
-                //thread.Start();
-                //djikstraScoreLabel.Text = djikstraScoreLabel.Text + " " + Algorithms.Sequence[0].Distance.ToString();
+                Thread thread = new Thread(() => 
+                {
+                    Algorithms.Djikstra();
+                    updateScore();
+                });
+                thread.Start();
             }
         }
 
         private void updateScore()
         {
-
+            if(Algorithms.Sequence.Count != 0)
+            {
+                djikstraScoreLabel.Invoke(new Action(() => djikstraScoreLabel.Text = "Djikstra: " + Algorithms.Sequence.First().Distance));
+            }
+            else
+            {
+                MessageBox.Show("Could not find a path from start to end", "No path found");
+            }
         }
 
         private bool getWaitTime()

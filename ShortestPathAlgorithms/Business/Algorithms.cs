@@ -15,7 +15,7 @@ namespace ShortestPathAlgorithms.Business
         public List<Node> Sequence = new List<Node>();
         public int WaitTimeBetweenNodes;
 
-        public void Djikstra(Action callback)
+        public void Djikstra()
         {
             Node lowestDistanceNode = null;
             List<Node> DjikstraNodes = new List<Node>(AllNodes.FindAll(x => x.Status != Node.NodeStatus.Blocked));
@@ -30,13 +30,18 @@ namespace ShortestPathAlgorithms.Business
 
                 lowestDistanceNode = DjikstraNodes.First(x => x.Distance == DjikstraNodes.Min(i => i.Distance));
                 DjikstraNodes.Remove(lowestDistanceNode);
-                
-                if(lowestDistanceNode.Status != Node.NodeStatus.Start)
-                    lowestDistanceNode.Button.BackColor = System.Drawing.Color.DarkOrange;
+
+                if (lowestDistanceNode.Distance == 999999999)
+                    break;
                 if (lowestDistanceNode.Status == Node.NodeStatus.End)
                 {
                     djikstraPath(lowestDistanceNode);
                     break;
+                }
+                if (lowestDistanceNode.Status != Node.NodeStatus.Start)
+                {
+                    lowestDistanceNode.Status = Node.NodeStatus.Visited;
+                    lowestDistanceNode.Button.BackColor = System.Drawing.Color.DarkOrange;
                 }
 
                 foreach (Node neighbour in lowestDistanceNode.Neighbours)
