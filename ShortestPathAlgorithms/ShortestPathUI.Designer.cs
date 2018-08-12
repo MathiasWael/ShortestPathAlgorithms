@@ -42,8 +42,6 @@
             this.djikstraButton = new System.Windows.Forms.Button();
             this.waitTimeTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.ScoresLabel = new System.Windows.Forms.Label();
-            this.djikstraScoreLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startNodeButton
@@ -156,9 +154,9 @@
             // 
             // djikstraButton
             // 
-            this.djikstraButton.Location = new System.Drawing.Point(12, 532);
+            this.djikstraButton.Location = new System.Drawing.Point(12, 319);
             this.djikstraButton.Name = "djikstraButton";
-            this.djikstraButton.Size = new System.Drawing.Size(75, 23);
+            this.djikstraButton.Size = new System.Drawing.Size(80, 23);
             this.djikstraButton.TabIndex = 13;
             this.djikstraButton.Text = "Djikstra";
             this.djikstraButton.UseVisualStyleBackColor = true;
@@ -166,7 +164,7 @@
             // 
             // waitTimeTextBox
             // 
-            this.waitTimeTextBox.Location = new System.Drawing.Point(12, 503);
+            this.waitTimeTextBox.Location = new System.Drawing.Point(12, 290);
             this.waitTimeTextBox.Name = "waitTimeTextBox";
             this.waitTimeTextBox.Size = new System.Drawing.Size(69, 20);
             this.waitTimeTextBox.TabIndex = 14;
@@ -175,37 +173,17 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 487);
+            this.label3.Location = new System.Drawing.Point(9, 274);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 13);
             this.label3.TabIndex = 15;
             this.label3.Text = "Time per node, ms";
             // 
-            // ScoresLabel
-            // 
-            this.ScoresLabel.AutoSize = true;
-            this.ScoresLabel.Location = new System.Drawing.Point(9, 343);
-            this.ScoresLabel.Name = "ScoresLabel";
-            this.ScoresLabel.Size = new System.Drawing.Size(62, 13);
-            this.ScoresLabel.TabIndex = 16;
-            this.ScoresLabel.Text = "Map Score:";
-            // 
-            // djikstraScoreLabel
-            // 
-            this.djikstraScoreLabel.AutoSize = true;
-            this.djikstraScoreLabel.Location = new System.Drawing.Point(9, 367);
-            this.djikstraScoreLabel.Name = "djikstraScoreLabel";
-            this.djikstraScoreLabel.Size = new System.Drawing.Size(45, 13);
-            this.djikstraScoreLabel.TabIndex = 17;
-            this.djikstraScoreLabel.Text = "Djikstra:";
-            // 
             // ShortestPathUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1009, 854);
-            this.Controls.Add(this.djikstraScoreLabel);
-            this.Controls.Add(this.ScoresLabel);
+            this.ClientSize = new System.Drawing.Size(1049, 901);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.waitTimeTextBox);
             this.Controls.Add(this.djikstraButton);
@@ -220,6 +198,7 @@
             this.Controls.Add(this.blockNodeButton);
             this.Controls.Add(this.endNodeButton);
             this.Controls.Add(this.startNodeButton);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ShortestPathUI";
             this.Text = "Shortest Path";
             this.ResumeLayout(false);
@@ -243,8 +222,6 @@
         private System.Windows.Forms.Button djikstraButton;
         private System.Windows.Forms.TextBox waitTimeTextBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label ScoresLabel;
-        private System.Windows.Forms.Label djikstraScoreLabel;
     }
 }
 

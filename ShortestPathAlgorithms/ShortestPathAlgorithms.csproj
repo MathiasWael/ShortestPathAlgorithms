@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\Algorithms.cs" />
+    <Compile Include="Model\Edge.cs" />
     <Compile Include="ShortestPathUI.cs">
       <SubType>Form</SubType>
     </Compile>

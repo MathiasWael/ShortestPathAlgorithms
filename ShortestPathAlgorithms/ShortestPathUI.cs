@@ -1,12 +1,8 @@
 ﻿using ShortestPathAlgorithms.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ShortestPathAlgorithms.Business;
 using System.Threading;
@@ -18,32 +14,135 @@ namespace ShortestPathAlgorithms
         public Algorithms Algorithms;
         private static int _mapHeight = 800;
         private static int _mapWidth = 800;
-        private int _buttonHeight;
-        private int _buttonWidth;
         private static int _startingX = 175;
         private static int _startingY = 25;
+
+        private int _buttonHeight;
+        private int _buttonWidth;
+        private int noNodesX;
+        private int noNodesY;
+
+        private Random random;
+        private List<Label> labels;
+
 
         public ShortestPathUI()
         {
             Algorithms = new Algorithms();
+            labels = new List<Label>();
+            random = new Random();
             InitializeComponent();
         }
 
-        private void createButtons(int width, int height)
+        private void createLabels()
         {
-            _buttonHeight = _mapHeight / height;
-            _buttonWidth = _mapWidth / width;
+            int counter = 0;
+            foreach (Node node in Algorithms.AllNodes)
+            {
+                int weight = getRandomWeight();
+                if (counter <= noNodesX - 1) //top row
+                {
+                    if (counter == 0)
+                    {
+                        createLabelRight(node.Button.Location, counter);
+                        createLabelDown(node.Button.Location, counter);
+                    }
+                    else if (counter == noNodesX - 1)
+                        createLabelDown(node.Button.Location, counter);
+                    else
+                    {
+                        createLabelRight(node.Button.Location, counter);
+                        createLabelDown(node.Button.Location, counter);
+                    }
+                }
+                else if (counter >= noNodesX * (noNodesY - 1)) //bottom row
+                {
+                    if (counter == noNodesX * (noNodesY - 1))
+                        createLabelRight(node.Button.Location, counter);
+                    else if (!(counter == noNodesX * noNodesY - 1))
+                        createLabelRight(node.Button.Location, counter);
+                }
+                else if (counter % noNodesX == noNodesX - 1) //right side
+                    createLabelDown(node.Button.Location, counter);
+                else if (counter % noNodesX == 0) //left side
+                {
+                    createLabelRight(node.Button.Location, counter);
+                    createLabelDown(node.Button.Location, counter);
+                }
+                else //middle
+                {
+                    createLabelRight(node.Button.Location, counter);
+                    createLabelDown(node.Button.Location, counter);
+                }
+                counter++;
+            }
+        }
+
+        private void createLabelRight(Point point, int counter)
+        {
+            int weight = getRandomWeight();
+            point.X += _buttonWidth;
+            point.Y += _buttonHeight / 2 - 7;
+            Label dynamicLabel = new Label();
+            Size size = new Size();
+            size.Height = 10;
+            size.Width = 10;
+            dynamicLabel.AutoSize = false;
+            dynamicLabel.Font = new Font("Arial", 6);
+            dynamicLabel.Size = size;
+            dynamicLabel.Location = point;
+            dynamicLabel.Text = weight.ToString();
+
+            Edge edgeRight = new Edge(dynamicLabel, weight);
+            edgeRight.Connections.Add(Algorithms.AllNodes[counter]);
+            edgeRight.Connections.Add(Algorithms.AllNodes[counter + 1]);
+            Algorithms.AllNodes[counter].Edges.Add(edgeRight);
+            Algorithms.AllNodes[counter + 1].Edges.Add(edgeRight);
+
+            Controls.Add(dynamicLabel);
+            labels.Add(dynamicLabel);
+        }
+
+        private void createLabelDown(Point point, int counter)
+        {
+            int weight = getRandomWeight();
+            point.X += _buttonWidth / 2 - 5;
+            point.Y += _buttonHeight;
+            Label dynamicLabel = new Label();
+            Size size = new Size();
+            size.Height = 10;
+            size.Width = 10;
+            dynamicLabel.AutoSize = false;
+            dynamicLabel.Font = new Font("Arial", 6);
+            dynamicLabel.Size = size;
+            dynamicLabel.Location = point;
+            dynamicLabel.Text = weight.ToString();
+
+            Edge edgeDown = new Edge(dynamicLabel, weight);
+            edgeDown.Connections.Add(Algorithms.AllNodes[counter]);
+            edgeDown.Connections.Add(Algorithms.AllNodes[counter + noNodesX]);
+            Algorithms.AllNodes[counter].Edges.Add(edgeDown);
+            Algorithms.AllNodes[counter + noNodesX].Edges.Add(edgeDown);
+
+            Controls.Add(dynamicLabel);
+            labels.Add(dynamicLabel);
+        }
+
+        private void createButtons()
+        {
+            _buttonHeight = _mapHeight / noNodesY - 10;
+            _buttonWidth = _mapWidth / noNodesX - 10;
 
             Point location = new Point(_startingX, _startingY);
-            for (int heightIndex = 0; heightIndex < height; heightIndex++)
+            for (int heightIndex = 0; heightIndex < noNodesY; heightIndex++)
             {
-                for (int widthIndex = 0; widthIndex < width; widthIndex++)
+                for (int widthIndex = 0; widthIndex < noNodesX; widthIndex++)
                 {
                     Algorithms.AllNodes.Add(new Node(createButton(location)));
-                    location.X += _buttonWidth;
+                    location.X += _buttonWidth + 13;
                 }
                 location.X = _startingX;
-                location.Y += _buttonHeight;
+                location.Y += _buttonHeight + 13;
             }
         }
 
@@ -60,20 +159,21 @@ namespace ShortestPathAlgorithms
             return dynamicButton;
         }
 
+        private int getRandomWeight()
+        {
+            return random.Next(1, 10);
+        }
+
         private void nodeHoverMouse(object sender, EventArgs e)
         {
             if(drawModeCheckBox.Checked)
-            {
                 nodeColouring(Algorithms.AllNodes.Find(x => x.Button == sender as Button));
-            }
         }
 
         private void nodeClick(object sender, EventArgs e)
         {
             if(!drawModeCheckBox.Checked)
-            {
                 nodeColouring(Algorithms.AllNodes.Find(x => x.Button == sender as Button));
-            }
         }
 
         private void nodeColouring(Node node)
@@ -110,40 +210,38 @@ namespace ShortestPathAlgorithms
         {
             foreach (Node node in Algorithms.AllNodes)
             {
-                if(node.Status == Node.NodeStatus.Visited)
+                if(node.Status == Node.NodeStatus.Visited || node.Status == Node.NodeStatus.Relaxed)
                 {
                     node.Status = Node.NodeStatus.Open;
                     node.Button.BackColor = Color.White;
                 }
                 else if(node.Status == Node.NodeStatus.Start)
-                {
                     node.Button.BackColor = Color.Red;
-                }
                 else if(node.Status == Node.NodeStatus.End)
-                {
                     node.Button.BackColor = Color.Green;
-                }
             }
         }
 
         private void createMapButton_Click(object sender, EventArgs e)
         {
             foreach (Node node in Algorithms.AllNodes)
-            {
                 Controls.Remove(node.Button);
-            }
+            foreach (Label label in labels)
+                Controls.Remove(label);
             Algorithms.AllNodes.Clear();
 
             try
             {
-                int x = Int32.Parse(noButtonsXTextBox.Text);
-                int y = Int32.Parse(noButtonsYTextBox.Text);
-                if(x < 2 || y < 2)
+                noNodesX = Int32.Parse(noButtonsXTextBox.Text);
+                noNodesY = Int32.Parse(noButtonsYTextBox.Text);
+                if(noNodesX < 2 || noNodesY < 2)
                     MessageBox.Show("Minimum 2 in both y and x axis", "Wrong input");
+                else if (noNodesX > 30 || noNodesY > 30)
+                    MessageBox.Show("Max. 30 in both y and x axis", "Wrong input");
                 else
                 {
-                    createButtons(x, y);
-                    Algorithms.LinkNeighbouringNodes(x, y);
+                    createButtons();
+                    createLabels();
                 }
             }
             catch(FormatException)
@@ -159,21 +257,8 @@ namespace ShortestPathAlgorithms
                 Thread thread = new Thread(() => 
                 {
                     Algorithms.Djikstra();
-                    updateScore();
                 });
                 thread.Start();
-            }
-        }
-
-        private void updateScore()
-        {
-            if(Algorithms.Sequence.Count != 0)
-            {
-                djikstraScoreLabel.Invoke(new Action(() => djikstraScoreLabel.Text = "Djikstra: " + Algorithms.Sequence.First().Distance));
-            }
-            else
-            {
-                MessageBox.Show("Could not find a path from start to end", "No path found");
             }
         }
 
@@ -200,5 +285,6 @@ namespace ShortestPathAlgorithms
             }
             return true;
         }
+
     }
 }
