@@ -98,8 +98,6 @@ namespace ShortestPathAlgorithms
             if (!drawModeCheckBox.Checked)
                 nodeColouring(Algorithms.AllNodes.Find(x => x.Button == sender as Button));
         }
-
-        
         #endregion
 
         #region MapCreation
