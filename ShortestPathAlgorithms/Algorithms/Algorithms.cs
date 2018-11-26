@@ -40,7 +40,7 @@ namespace ShortestPathAlgorithms.Business
                     lowestDistanceNode.Status = Node.NodeStatus.Visited;
                     lowestDistanceNode.Button.BackColor = System.Drawing.Color.DarkOrange;
                 }
-
+            
                 foreach (Edge edge in lowestDistanceNode.Edges)
                 {
                     Node neighbour = edge.Connections.Find(x => x != lowestDistanceNode);
@@ -68,6 +68,5 @@ namespace ShortestPathAlgorithms.Business
             if (target.Previous != null)
                 djikstraPath(target.Previous);
         }
-
     }
 }
